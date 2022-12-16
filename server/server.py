@@ -10,23 +10,26 @@ from fastapi import FastAPI, Body, Request
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-
-origins = ["*"]
-
 app = FastAPI(title="A7 Laptop Backend", version="0.1")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+print("== Now Running A7 Laptop Server... ==")
+print("Running from:", os.getcwd())
+
 @app.get("/")
 async def root():
     return {"message": str(datetime.datetime.now()) +" | "+ "A7 Laptop Server running !"}
 
-print("== Now Running A7 Laptop Server... ==")
-print("Running from:", os.getcwd())
+@app.get("/get_status")
+async def root():
+    return {"message": str(datetime.datetime.now()) +" | "+ "A7 Laptop Server running !"}
+
 
 from starlette.responses import FileResponse
 @app.get("/ctpc")
